@@ -36,3 +36,13 @@
 
 [Documentación Arrays](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array)
 [Video: Inmutabilidad](https://youtu.be/wjQ9AMo-KvI)
+
+## Callbacks
+
+[Vídeo](https://www.youtube.com/watch?v=kjCH7vvISsE)
+
+## Asíncronismo
+
+[Video: Eventloop](https://www.youtube.com/watch?v=bWvnWhVCHAc)
+
+[Video: Promesas](https://www.youtube.com/watch?v=6O8ax3JYboc)
