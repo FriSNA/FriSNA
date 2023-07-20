@@ -1,3 +1,5 @@
+// Async Function
+
 const pokemons = [
   {
     number: 1,
@@ -24,15 +26,16 @@ const getPokemonByNumber = (number) => new Promise((resolve, reject) => {
   }, 3000)
 })
 
-// const bulbasaur = getPokemonByNumber(1)
-// setTimeout(() => {
-//   console.log(bulbasaur)
-// }, 6000)
 
-getPokemonByNumber(1).then((pokemon) => {
-  return pokemon.name
-}).then((name) => {
-  console.log(name)
-}).catch((error) => {
-  console.log(error)
-}).finally(() => {console.log('No me importa si recibo un pokemon o no')})
+async function getPokemon() {
+  try {
+    const pokemon = await getPokemonByNumber(10)
+    const { name } = pokemon
+    console.log(name)
+  } catch (error) {
+    console.log(error)
+  }
+  console.log('No me importa si recibo un pokemon o no')
+}
+
+getPokemon()
