@@ -1,20 +1,52 @@
-import { useState } from "react";
-import IncrementButton from "./IncrementButton";
-import DecrementButton from "./DecrementButton";
-import ResetButton from "./ResetButton";
+import { useState, useEffect} from "react";
+
 
 export function App() {
-  const initialValue = 0;
-  const [count, setCount] = useState(initialValue);
+  const [character, setCharacter] = useState([]);
 
   // https://rickandmortyapi.com/api/character
 
+  
+
+  useEffect(()=> {
+    const getCharacters = async () => {
+  try{
+    const response = await fetch('https://rickandmortyapi.com/api/character')
+    const json = await response.json()
+    setCharacter(json.results)
+    console.log(character)
+    // console.log(json.results)
+  }
+  
+  catch (e){
+    console.log('error', e)
+  }
+  }
+   
+  getCharacters();}, [])
+
+  
+
   return (
-    <section>
-      <h1>Counter: {count}</h1>
-      {count ? <DecrementButton setCount={setCount} count={count} /> : null}
-      <ResetButton initialValue={initialValue} setCount={setCount} />
-      <IncrementButton setCount={setCount} />
-    </section>
+   <ol>
+    {character.map(({id, name, image, status, species, type, gender}) => (
+        <li key={id}>
+          
+<img src={image} alt={name} ></img>
+<div>
+  {name} 
+  {/* <br/>
+  {status}
+  <br/>
+  {type}
+  <br/>
+  {gender} */}
+</div>
+        </li>
+      ))}
+    
+    
+    
+   </ol>
   );
 }
