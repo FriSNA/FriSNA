@@ -1,9 +1,11 @@
 import React from 'react'
 
-function Character() {
+function Character({characters}) {
   return (
-    <div>Character</div>
+    <div>
+    <img src={characters.image} alt={characters.name} ></img>
+    <h2><b>{characters.name}</b></h2>
+    </div>
   )
 }
-
 export default Character
