@@ -1,47 +1,58 @@
 import React from 'react'
 import { useState, useEffect} from "react";
 import Character from './Character';
-import NextButton from "./Components/NextButton";
-import PrevButton from "./Components/PrevButton";
+import NextButton from "./NextButton";
+import PrevButton from "./PrevButton";
 
 function CharacterList() {
 
     const [characters, setCharacter] = useState([]);
-    const [info, setInfo] = useState([]);
+    const [info, setInfo] = useState({count : 0, pages: 0, next: '', prev : ''});
+    const [fetchUrl, setFetchUrl] = useState('https://rickandmortyapi.com/api/character')
 
     useEffect(()=> {
       const getCharacters = async () => {
     try{
-      const response = await fetch('https://rickandmortyapi.com/api/character')
+      const response = await fetch(fetchUrl)
       const json = await response.json()
-      setCharacter(json.results)
       setInfo(json.info)
+      setCharacter(json.results)
     }
     catch (e){
       console.log('error', e)
     }
     }
-      getCharacters();}, [])
+      getCharacters();}, [fetchUrl])
     
 
-      
+      //Esto es la lógica de mis botones. 
     const onNext = () => {
-      getCharacters(info.next);
+      setFetchUrl(info.next)
       }
     
     const onPrevious = () => {
-      getCharacters(info.prev);
+      setFetchUrl(info.prev);
       }
-
+// ----------------------------------------------
   return (
     <div>
+      <PrevButton 
+      prev={info.prev}
+      onPrevious={onPrevious}/>
+    <NextButton 
+      onNext={onNext} 
+      next={info.next}/>
         <ol>
         {characters.map((characters) => (
       <Character key={characters.id} characters={characters}/>
       ))}
         </ol>
-    <NextButton next={info.next} onNext={onNext}/>
-    <PrevButton prev={info.prev} onPrevious={onPrevious}/>
+    <PrevButton 
+      prev={info.prev}
+      onPrevious={onPrevious}/>
+    <NextButton 
+      onNext={onNext} 
+      next={info.next}/>
     </div>
   )
 }
